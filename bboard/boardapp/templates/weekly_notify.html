@@ -1,0 +1,7 @@
+{% block content %}
+    <h3 style="text-align: center;">Привет, {{ user.username }}. Направляем подборку объявлений за прошедшую неделю!</h3>
+    {% for advert in adverts %}
+        <p style="text-align: left;">{{ advert.datetime }} - {{ advert.title|truncatechars:20 }}</p>
+        <a style="text-align: left;" href="http://127.0.0.1:8000{% url 'advert_detail' advert.id %}">{{ advert.content|truncatechars:50|safe }}</a>
+    {% endfor %}
+{% endblock content %}

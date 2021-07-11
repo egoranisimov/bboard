@@ -1,0 +1,29 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Поиск
+{% endblock title %}
+
+{% block content %}
+<form method="GET">
+    <p style="text-align: left;">
+        Поиск объявлений<br>
+        {% for field in filter.form %}
+            {{ field }} {{ field.label }}<br>
+        {% endfor %}
+        <input type="submit" value="Найти">
+    </p>
+</form>
+{% for advert in filter.qs %}
+    <a href="{% url 'advert_detail' advert.id %}">{{ advert.title }}</a><br>
+    {{ advert.datetime|date:'d M Y' }}, Автор - {{ advert.author.cuser.username }}, Категория - {{ advert.category }}<br>
+    {{ advert.content|truncatechars:100|safe }}<br>
+    {% if user == advert.author.cuser %}
+        <a href="{% url 'advert_delete' advert.id %}">Удалить</a>
+        <a href="{% url 'advert_update' advert.id %}">Редактировать</a>
+    {% elif user.is_authenticated %}
+        <a href="{% url 'reply_add' advert.id %}">Оставить отклик</a>
+    {% endif %}
+    <hr />
+{% endfor %}
+{% endblock content %}

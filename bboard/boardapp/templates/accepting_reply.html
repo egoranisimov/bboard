@@ -1,0 +1,4 @@
+{% block content %}
+    <h3 style="text-align: center;">Привет, {{ username }}! Твой отклик к объявлению "{{ advert.title|truncatechars:20 }}" принят!</h3>
+    <p style="text-align: left;">{{ reply.content|truncatechars:50 }}</p>
+{% endblock content %}

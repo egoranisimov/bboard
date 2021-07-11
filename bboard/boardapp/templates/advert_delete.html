@@ -1,0 +1,17 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Удалить объявление
+{% endblock title %}
+
+{% block content %}
+    <h3>Вы действительно хотите удалить это объявление?</h3>
+    <hr>
+    <h3 style="text-align: center;">{{ advert.title }}, {{ advert.datetime|date:'d M Y' }}</h3>
+    <p style="text-align: left;">{{ advert.content|safe }}</p>
+    <hr>
+    <form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Подтвердить">
+    </form>
+{% endblock content %}

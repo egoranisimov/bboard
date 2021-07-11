@@ -1,0 +1,22 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Профиль
+{% endblock title %}
+
+{% block content %}
+<h3>Профиль</h3>
+<hr>
+<form method="POST">
+    {% csrf_token %}
+    <p style="text-align: left;">
+        {{ form }}
+        <input type="submit" value="Сохранить изменения">
+    </p>
+</form>
+<hr>
+<p style="text-align: left;">
+    <a href="{% url 'replies' user.id %}">Отзывы на объявления</a>
+</p>
+
+{% endblock content %}

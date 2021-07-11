@@ -1,0 +1,22 @@
+{% extends 'flatpages/default.html' %}
+
+
+{% block title %}
+Adverts
+{% endblock title %}
+
+{% block content %}
+{% for advert in adverts %}
+    <a href="{% url 'advert_detail' advert.id %}">{{ advert.title }}</a><br>
+    {{ advert.datetime|date:'d M Y' }}, Автор - {{ advert.author.cuser.username }}, Категория - {{ advert.category }}<br>
+    {{ advert.content|truncatechars:20|safe }}<br>
+    {% if user == advert.author.cuser %}
+        <a href="{% url 'advert_delete' advert.id %}">Удалить</a>
+        <a href="{% url 'advert_update' advert.id %}">Редактировать</a>
+    {% elif user.is_authenticated %}
+        <a href="{% url 'reply_add' advert.id %}">Оставить отклик</a>
+    {% endif %}
+    <hr />
+{% endfor %}
+{% endblock content %}
+

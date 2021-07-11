@@ -1,0 +1,5 @@
+{% block content %}
+    <h3 style="text-align: center;">Привет, {{ username }}! На твое объявление оставили новый отклик!</h3>
+    <p style="text-align: left;">{{ advert.title|truncatechars:20 }}</p>
+    <a style="text-align: left;" href="http://127.0.0.1:8000{% url 'advert_detail' advert.id %}">{{ reply.content|truncatechars:50 }}</a>
+{% endblock content %}

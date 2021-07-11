@@ -1,0 +1,28 @@
+{% extends 'flatpages/default.html' %}
+
+
+{% block title %}
+Мои отзывы
+{% endblock title %}
+
+{% block content %}
+<form method="GET">
+    <p style="text-align: left;">
+        Поиск отзывов<br>
+        {% for field in filter.form %}
+            {{ field }} {{ field.label }}<br>
+        {% endfor %}
+        <input type="submit" value="Найти">
+    </p>
+</form>
+{% for reply in filter.qs %}
+    {{ reply.advert.title }}<br>
+    {{ reply.content }}<br>
+    {{ reply.datetime|date:'d M Y' }}, Автор - {{ reply.author.cuser.username }}<br>
+    <a href="{% url 'reply_delete' reply.id %}">Удалить</a>
+    {% if not reply.status %}
+        <a href="{% url 'reply_accept' reply.id %}">Принять</a>
+    {% endif %}
+    <hr />
+{% endfor %}
+{% endblock content %}
